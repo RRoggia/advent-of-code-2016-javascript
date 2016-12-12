@@ -9,8 +9,8 @@ var allInstructions = [
 var keypad = createKeyPad();
 
 var position = {
-	x: 1,
-	y: 1 
+	x: 0,
+	y: 2 
 };
 var password = [];
 
@@ -22,24 +22,24 @@ allInstructions.forEach(function (lineInstructions) {
 	password.push(code);
 });
 
-console.log("Password is: " password);
+console.log("Password is: ", password);
 
 function getNextCode(position, instruction){
 	switch(instruction){
 		case "L":
-			if(position.x > 0)
+			if(position.x > 0 && keypad[position.y][position.x - 1])
 				position.x--;
 		break;
 		case "R":
-			if(position.x < 2)
+			if(position.x < 4 && keypad[position.y][position.x + 1])
 				position.x++;
 		break;
 		case "U":
-			if(position.y > 0)
+			if(position.y > 0 && keypad[position.y - 1][position.x])
 				position.y--;
 			break;
 		case "D":
-			if(position.y < 2)
+			if(position.y < 4 && keypad[position.y + 1][position.x])
 				position.y++;
 		break;
 	}
@@ -49,15 +49,38 @@ function getNextCode(position, instruction){
 
 function createKeyPad(){
 	var keypad = [];
-	var number = 1;
+	var codes = [1,2,3,4,5,6,7,8,9,"A","B","C","D"];
+	var codesIndex = 0;
+	var cellsWithCodeInRow = 1;
 
-	for (var i = 0; i < 3; i++) {
+	var SQUARE_SIZE = 5;
+
+	for (var i = 0; i < SQUARE_SIZE; i++) {
 		var row = [];
 		keypad.push(row);
-		for (var j = 0; j < 3; j++) {
-			row.push(number);
-			number++;
+
+		var numberOfEmptyCells = SQUARE_SIZE - cellsWithCodeInRow;
+		var emptyCellsInOneSide = numberOfEmptyCells / 2;
+
+		for (var j = 0; j < SQUARE_SIZE; j++) {
+			
+			if( j < emptyCellsInOneSide ){
+				row.push(null);
+			}else if (j >= cellsWithCodeInRow + emptyCellsInOneSide ){
+				row.push(null);
+			}else {
+				row.push(codes[codesIndex]);
+				codesIndex++;
+			}
+	
 		}
+		
+		if (i < (SQUARE_SIZE -1) / 2) {
+			cellsWithCodeInRow += 2;
+		} else {
+			cellsWithCodeInRow -= 2;
+		}
+	
 	}
 	return keypad;
 };
