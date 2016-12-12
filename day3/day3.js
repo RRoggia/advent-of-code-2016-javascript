@@ -2,18 +2,19 @@ var candidatesTriangles = getInputs();
 
 var numberOfPossibleTriangles = 0;
 
-candidatesTriangles.forEach(function (triangleSides) {
-	if(isATriangle(triangleSides))
-		numberOfPossibleTriangles++;
-	
-});
+for(var x = 0; x < candidatesTriangles.length ; x +=3){
 
-function isATriangle(triangleSides){
-	
-	return (triangleSides[0] + triangleSides[1] > triangleSides[2]) &&
-			(triangleSides[1] + triangleSides[2] > triangleSides[0]) &&
-			(triangleSides[2] + triangleSides[0] > triangleSides[1]);
+	candidatesTriangles[x].forEach(function(side, y ){
+		if(isATriangle(x, y))
+			numberOfPossibleTriangles++;
 
+	});
+}
+
+function isATriangle(x,y){
+	return (candidatesTriangles[x][y] + candidatesTriangles[x + 1][y] > candidatesTriangles[x + 2][y]) &&
+			(candidatesTriangles[x + 1][y] + candidatesTriangles[x + 2][y] > candidatesTriangles[x][y]) &&
+			(candidatesTriangles[x + 2][y] + candidatesTriangles[x][y] > candidatesTriangles[x + 1][y]);
 }
 
 console.log(numberOfPossibleTriangles);
