@@ -12,11 +12,11 @@ for(var y = 0; y < 8 ; y++){
 			mostFrequent[repeatedlyMessages[x][y]] = 1;
 		}
 	}
-	var higherValue = 0;
+	var higherValue =  Number.MAX_SAFE_INTEGER;
 	var higherLetter = "";
 	
 	for(var letter in mostFrequent){
-		if(higherValue < mostFrequent[letter]){
+		if(higherValue > mostFrequent[letter]){
 			higherValue = mostFrequent[letter];
 			higherLetter = letter;
 		}
