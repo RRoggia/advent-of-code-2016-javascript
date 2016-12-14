@@ -1,8 +1,8 @@
 var roomsEncryption = getInputs();
 var sectorIdSum = 0;
+
 roomsEncryption.forEach(function (roomEncryption) {
 	
-
 	var room = new Room(roomEncryption);
 
 	var fiveMostCommonLettersCheckSum = createCheckSum(room.name);
@@ -25,6 +25,15 @@ function Room(roomEncryption){
 }
 
 function createCheckSum(name){
+	
+	var timesLettersAppears = countHowManyTimesLetterAppearsIn(name);
+
+	var checkSumOrdered = orderMapByValueAndAlphabetization(timesLettersAppears);
+	
+	return getReadableFiveDigitsCheckSum(checkSumOrdered);
+}
+
+function countHowManyTimesLetterAppearsIn(name){
 	var timesLettersAppears = {};
 
 	Array.from(name).forEach(function(letter){
@@ -35,43 +44,46 @@ function createCheckSum(name){
 		}
 	});
 
-	var checkSumOrderedByValue = [];
+	return timesLettersAppears;
+}
 
-	for (var letter in timesLettersAppears){
+function orderMapByValueAndAlphabetization(timesLettersAppears){
+
+	var checkSumOrdered = [];
+
+	for(var letter in timesLettersAppears) {
 		
-		if(checkSumOrderedByValue.length === 0){
-			checkSumOrderedByValue.push(letter);
-			continue;
-		}
+		if(checkSumOrdered.length > 0) {
+				
+			var isLastItem = true;
 
-		if(checkSumOrderedByValue.length > 0){
-			var shouldAdd = false;
-			var index = 0;
-
-			for (var i = 0; i < checkSumOrderedByValue.length; i++) {
-				var orderedLetter = checkSumOrderedByValue[i]
+			for (var i = 0; i < checkSumOrdered.length; i++) {
+				var orderedLetter = checkSumOrdered[i]
 
 				if(timesLettersAppears[orderedLetter] < timesLettersAppears[letter]){
-					shouldAdd = true;
-					index = i;
+					checkSumOrdered.splice(i, 0, letter);
+					isLastItem = false;
 					break;
 				}else if(timesLettersAppears[orderedLetter] === timesLettersAppears[letter]){
 					if(letter < orderedLetter){
-						shouldAdd = true;
-						index = i;
+						checkSumOrdered.splice(i, 0, letter);
+						isLastItem = false;
 						break;
 					}
 				}						
 			};
 
-			if(shouldAdd){
-				shouldAdd = false;
-				checkSumOrderedByValue.splice(index, 0, letter);
-			}else{
-				checkSumOrderedByValue.push(letter);
-			}
+			if(isLastItem)
+				checkSumOrdered.push(letter);
+
+		}else {
+			checkSumOrdered.push(letter);
 		}
 	}
-		
-	 return checkSumOrderedByValue.toString().substring(0,9).replace(/,/g,"");;
+
+	return checkSumOrdered;
+}
+
+function getReadableFiveDigitsCheckSum(checkSum){
+	return checkSum.toString().substring(0,9).replace(/,/g,"");
 }
