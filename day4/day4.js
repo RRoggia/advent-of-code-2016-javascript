@@ -1,14 +1,19 @@
 var roomsEncryption = getInputs();
 var sectorIdSum = 0;
 
+var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
 roomsEncryption.forEach(function (roomEncryption) {
 	
 	var room = new Room(roomEncryption);
 
-	var fiveMostCommonLettersCheckSum = createCheckSum(room.name);
+	var fiveMostCommonLettersCheckSum = createCheckSum(room.nameWithoutDash);
 
-	if(fiveMostCommonLettersCheckSum === room.checkSum)
+	if(fiveMostCommonLettersCheckSum === room.checkSum){
 		sectorIdSum += room.sectorId;
+		var decryptedRoomName = decryptRoomName(room.name, room.sectorId);
+		console.log("Decrypted Name: ", decryptedRoomName, " sector id: ", room.sectorId);
+	}
 
 });
 
@@ -19,7 +24,8 @@ function Room(roomEncryption){
 	var stringfiedCheckSum = roomEncryption.match(/\[[a-z]{5}\]/)[0];
 
 	var notTheName = stringfiedSectorId.length + stringfiedCheckSum.length;
-	this.name = roomEncryption.substring(0, (roomEncryption.length - 1) - notTheName).replace(/-/g,"");
+	this.name = roomEncryption.substring(0, (roomEncryption.length - 1) - notTheName);
+	this.nameWithoutDash = this.name.replace(/-/g,"");
 	this.sectorId = parseInt(stringfiedSectorId);
 	this.checkSum = stringfiedCheckSum.replace(/[^a-z]/g,"");
 }
@@ -86,4 +92,33 @@ function orderMapByValueAndAlphabetization(timesLettersAppears){
 
 function getReadableFiveDigitsCheckSum(checkSum){
 	return checkSum.toString().substring(0,9).replace(/,/g,"");
+}
+
+function decryptRoomName(encryptedName, sectorId){
+	var decryptedName = "";
+	Array.from(encryptedName).forEach(function(letter){
+		var position = 0 ;
+
+		if(letter !== '-'){
+
+			alphabet.forEach(function(alphabetLetter, i){
+				if(letter === alphabetLetter){
+					position = i;
+				}
+			});
+
+			for (var i = 0; i < sectorId; i++) {
+				if(position === 25){
+					position = 0;		
+				}else{
+					position++;
+				}
+			}
+
+			decryptedName += alphabet[position];
+		}else{
+			decryptedName += " ";
+		}
+	});
+	return decryptedName;
 }
