@@ -24,3 +24,7 @@ My solutions to advent of code 2016
 ### Day 6 
 * [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/ca9bd342c7b736b1e7c3690a2f2ba5e1198517eb/day6/day6.js)
 * [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/96965f819274088939605986e3b8350497ca1b6e/day6/day6.js)
+
+### Day 7
+* [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/63daf9a0662b337e2102f42d4ea5534ba1f3e0b9/day7/day7.js)
+* [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/32a6d84ab984464be085866c7044b7c0093db3dc/day7/day7.js)
