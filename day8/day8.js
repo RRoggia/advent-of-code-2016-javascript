@@ -9,6 +9,10 @@ instructions.forEach(function(instruction) {
 
 });
 
+for (var i = 0; i < led.length; i++) {
+	console.log(led[i].toString());
+}
+
 console.log(getLedsTurnedOn(led));
 
 function Operation(instruction){
