@@ -2,13 +2,12 @@ var compressedFile = getInputs();
 	
 var decompressedFile = "";
 
-var isWhitinMarker = false;
-
 var hasDataToDecompress = true;
 
 while(hasDataToDecompress){
 	if(!compressedFile){
 		hasDataToDecompress = false;
+		continue;
 	}
 
 	var nextMarker = compressedFile.match(/\((.?){4}x.(.?){3}\)/);
