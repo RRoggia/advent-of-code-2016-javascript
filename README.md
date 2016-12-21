@@ -35,5 +35,5 @@ My solutions to advent of code 2016
 
 ### Day 9
 * [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0f07ff1616203366ab58cc10bc06eb2c2311ee35/day9/day9.js)
-* [Second Part (with brute force (didnot work due to the string size)](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0675683687b2b1d8e4ff9c46235538dd2f62fde8/day9/day9.js)
-* [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/32a6d84ab984464be085866c7044b7c0093db3dc/day7/day7.js)
+* [Second Part - A brute force algorith, it did not work due to the string size limitation](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0675683687b2b1d8e4ff9c46235538dd2f62fde8/day9/day9.js)
+* [Second Part]()
