@@ -1,0 +1,22 @@
+{
+  "name": "roggia-advent-of-code",
+  "version": "1.0.0",
+  "description": "My solutions to advent of code 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RRoggia/roggia-advent-of-code-2016.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RRoggia/roggia-advent-of-code-2016/issues"
+  },
+  "homepage": "https://github.com/RRoggia/roggia-advent-of-code-2016#readme",
+  "devDependencies": {
+    "jasmine": "^2.5.2"
+  }
+}
