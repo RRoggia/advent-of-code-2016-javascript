@@ -53,16 +53,22 @@ describe("Day One", function() {
 		expect(mySelf.getBlocksAwayStartingPoint()).toEqual(2);
 	});
 
-	it("should work with puzzle inputs", function(){
+	it("should get the bunny HQ distance from starting point", function(){
 		var coordinates = require('../../day1/inputs');
 		mySelf.followCoordinates(coordinates);
-		expect(mySelf.getBlocksAwayStartingPoint()).toEqual(253);
+		expect(mySelf.getBlocksAwayStartingPoint()).toEqual(126);
 	});
 
 	it("should consider coordinates as absolute", function(){
 		mySelf.location.x = -1;
 		mySelf.location.y = -4;
 		expect(mySelf.getBlocksAwayStartingPoint()).toEqual(5);
+	});
+
+	it("should store locations that I already passed by", function(){
+		mySelf.walk(2);
+		expect(mySelf.wasTheLocationVisited({x:0, y:1})).toEqual(true);
+		expect(mySelf.wasTheLocationVisited({x:0, y:2})).toEqual(true);
 	});
 
 });

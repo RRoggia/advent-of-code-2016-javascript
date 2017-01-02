@@ -7,6 +7,9 @@ function MySelf(){
 	};
 
 	this.direction = directions.north;
+
+	this.locationsVisited = [];
+	this.bunnyHQLocation = null;
 };
 
 MySelf.prototype.rotate = function(rotationInSequence){
@@ -31,30 +34,58 @@ MySelf.prototype.walk = function(numberOfBlocks){
 
 	switch (this.direction){
 		case directions.north:
-			this.location.y += numberOfBlocks;
+			this.walkInAxisAndStoreLocation('y', numberOfBlocks, 1);
 			break;
 		case directions.south:
-			this.location.y -= numberOfBlocks;
+			this.walkInAxisAndStoreLocation('y', numberOfBlocks, -1);
 			break;
 		case directions.east:
-			this.location.x += numberOfBlocks;
+			this.walkInAxisAndStoreLocation('x', numberOfBlocks, 1);
 			break;
 		case directions.west:
-			this.location.x -= numberOfBlocks;
+			this.walkInAxisAndStoreLocation('x', numberOfBlocks, -1);
 			break;
 	}
 
 };
 
+MySelf.prototype.walkInAxisAndStoreLocation = function(axis, numberOfBlocks, value){
+	for (var i = 0; i < numberOfBlocks; i++) {
+		this.location[axis] += value;
+		if(!this.wasTheLocationVisited(this.location)){
+			this.storeMyLocation();
+		}else{
+			this.saveBunnyHQLocation();
+			return;
+		}
+	}
+};
+
 MySelf.prototype.followCoordinates = function(coordinates){
 	coordinates.forEach(function (coord) {
-		this.rotate(coord.substring(0,1));
-		this.walk(parseInt(coord.substring(1, coord.length)));
+		if(this.bunnyHQLocation === null){
+			this.rotate(coord.substring(0,1));
+			this.walk(parseInt(coord.substring(1, coord.length)));
+		}
 	}, this);
 };
 
 MySelf.prototype.getBlocksAwayStartingPoint = function(){
 	return Math.abs(this.location.x) + Math.abs(this.location.y);
+};
+
+MySelf.prototype.storeMyLocation = function(){
+	var myLocation = JSON.stringify(this.location);
+	this.locationsVisited.push(myLocation);
+};
+
+MySelf.prototype.wasTheLocationVisited = function(visitedLocation){
+	var locationStringfied = JSON.stringify(visitedLocation);
+	return this.locationsVisited.indexOf(locationStringfied) >= 0;
+};
+
+MySelf.prototype.saveBunnyHQLocation = function(){
+	this.bunnyHQLocation = this.location;
 };
 
 module.exports = MySelf;
