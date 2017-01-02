@@ -4,6 +4,8 @@ My solutions to advent of code 2016
 
 ### Day 1
 * [both puzzles](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0cfd3054aa4c75c24d318239ccad3368034b1742/day1/day1.js)
+* [Tests for first puzzle](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/8b8bc64ff35ba05c94055c2b3c47d5476b8994f1/spec/tests/Day1Spec.js)
+* [Tests for second puzzle](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/21e61da006bbdbfdbd94b5ded4d3af00b95ca584/spec/tests/Day1Spec.js)
 
 ### Day 2
 * [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/ae956fb28f02632333ad4aede90fd27cab2a5505/day2/day2.js)
