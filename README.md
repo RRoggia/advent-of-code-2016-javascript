@@ -28,3 +28,12 @@ My solutions to advent of code 2016
 ### Day 7
 * [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/63daf9a0662b337e2102f42d4ea5534ba1f3e0b9/day7/day7.js)
 * [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/32a6d84ab984464be085866c7044b7c0093db3dc/day7/day7.js)
+
+### Day 8
+* [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/4d67266538a426a6365437e7fa199945834e6aca/day8/day8.js)
+* [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/7d63607e23700107aaab9ddb96af7ef0259eac99/day8/day8.js)
+
+### Day 9
+* [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0f07ff1616203366ab58cc10bc06eb2c2311ee35/day9/day9.js)
+* [Second Part - A brute force algorith, it did not work due to the string size limitation](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/0675683687b2b1d8e4ff9c46235538dd2f62fde8/day9/day9.js)
+* [Second Part]()
