@@ -33,6 +33,19 @@ describe("Decompressor", function() {
 		expectedMarker = new Marker('(3x3)');
 		expect(marker).toEqual(expectedMarker);
 	});
+
+	it("should decompress a marker", function(){
+		var compressedData = '(8x2)(3x3)ABC(1x1)Y(3x3)ABC';
+		var decompressor = new Decompressor(compressedData);
+
+		while(decompressor.hasDataToDecompress()){
+			var marker = decompressor.getNextMarker();
+			decompressor.decompressMarker();
+		}
+
+		expect(decompressor.getDecompressedLength()).toBe(26);
+		
+	});
 });
 
 describe("Marker", function(){
