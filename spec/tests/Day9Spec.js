@@ -46,6 +46,18 @@ describe("Decompressor", function() {
 		expect(decompressor.getDecompressedLength()).toBe(26);
 		
 	});
+
+	it("should should decompress the input file", function(){
+		var compressedData = require('../../day9/inputs');
+		var decompressor = new Decompressor(compressedData);
+
+		while(decompressor.hasDataToDecompress()){
+			var marker = decompressor.getNextMarker();
+			decompressor.decompressMarker();
+		}
+
+		expect(decompressor.getDecompressedLength()).toBe(74532);
+	});
 });
 
 describe("Marker", function(){
