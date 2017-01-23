@@ -1,79 +1,42 @@
 var Decompressor = require('../../day9/Decompressor');
 var Marker = require('../../day9/Marker');
 
-describe("Decompressor", function() {
-	it("should consider parentheses as a marker ", function() {
-		var compressedData = 'A(1x5)BC';
-		var decompressor = new Decompressor(compressedData);
-		var marker = decompressor.getNextMarker();
-		expect(marker).not.toBe(null);
-	});
+describe("Marker", function() {
 
-	it("should not find a marker if compressed file does not have parentheses", function(){
-		var decompressedData = 'ADVENT';
-		var decompressor = new Decompressor(decompressedData);
-		var marker = decompressor.getNextMarker();
-		expect(marker).toBe(null);
-	});
+	var compressedData = null;
+	var marker = null;
 
-	it("should not consider parentheses within a marker as a Marker", function(){
-		var compressedData = 'X(8x2)(3x3)ABC(1x1)Y(3x3)ABC';
-		var decompressor = new Decompressor(compressedData);
-		
-		var marker = decompressor.getNextMarker();
-		var expectedMarker = new Marker('(8x2)');
-		expect(marker).toEqual(expectedMarker);
-
-		marker = decompressor.getNextMarker();
-		expectedMarker = new Marker('(1x1)');
-		expect(marker).toEqual(expectedMarker);
-
-
-		marker = decompressor.getNextMarker();
-		expectedMarker = new Marker('(3x3)');
-		expect(marker).toEqual(expectedMarker);
-	});
-
-	it("should decompress a marker", function(){
-		var compressedData = '(8x2)(3x3)ABC(1x1)Y(3x3)ABC';
-		var decompressor = new Decompressor(compressedData);
-
-		while(decompressor.hasDataToDecompress()){
-			var marker = decompressor.getNextMarker();
-			decompressor.decompressMarker();
-		}
-
-		expect(decompressor.getDecompressedLength()).toBe(26);
-		
-	});
-
-	it("should should decompress the input file", function(){
-		var compressedData = require('../../day9/inputs');
-		var decompressor = new Decompressor(compressedData);
-
-		while(decompressor.hasDataToDecompress()){
-			var marker = decompressor.getNextMarker();
-			decompressor.decompressMarker();
-		}
-
-		expect(decompressor.getDecompressedLength()).toBe(74532);
-	});
-});
-
-describe("Marker", function(){
-	var decompressor = null;
 	beforeEach(function(){
-		var compressedData = 'A(1x5)BC';
-		decompressor = new Decompressor(compressedData);
+		compressedData = '(27x12)(20x12)(13x14)(7x10)(1x12)A';
+		marker = new Marker(compressedData);
 	});
 
-	it("should know how many times to repeat the subsequent chars", function(){
-		var marker = decompressor.getNextMarker();
-		expect(marker.repeatTimes).toBe(5);
+	it("should contains the number of times to repeat a string", function(){
+		expect(marker.timesToRepeat).toBe(12);
 	});
 
-	it("should know how many subsequent chars it should repeat", function(){
-		var marker = decompressor.getNextMarker();
-		expect(marker.subsequentChar).toBe(1);
+	it("should contains the number of the subsequent chars", function(){
+		expect(marker.numberOfSubsequentChar).toBe(27);
 	});
+
+	it("should contains the subsequent Char", function(){
+		expect(marker.subsequentChar).toBe('(20x12)(13x14)(7x10)(1x12)A');
+
+		compressedData = 'X(8x2)(3x3)ABCY';
+		marker = new Marker(compressedData);
+		expect(marker.subsequentChar).toBe('(3x3)ABC');
+	});
+
+	it("should multiply inner markers", function(){
+		var length = marker.getDecompressedDataLength();
+		expect(length).toBe(241920);
+	});
+
+	it("should add same level markers", function(){
+		compressedData = '(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN';
+		marker = new Marker(compressedData);
+		var length = marker.getDecompressedDataLength();
+		expect(length).toBe(445);
+	});
+
 });
