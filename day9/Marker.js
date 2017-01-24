@@ -8,8 +8,13 @@ function Marker(compressedData){
 	var splittedMarker = nextMarkerAsString[0].split('x');
 	this.numberOfSubsequentChar = parseInt(splittedMarker[0].replace('(',''));
 	this.timesToRepeat = parseInt(splittedMarker[1].replace(')',''));
-	var endOfMarker = nextMarkerAsString[0].length + nextMarkerAsString.index + this.numberOfSubsequentChar;
-	this.subsequentChar = compressedData.substring(nextMarkerAsString[0].length + nextMarkerAsString.index, endOfMarker);
+
+	var markerLength = nextMarkerAsString[0].length;
+	var beginOfMarker = markerLength + nextMarkerAsString.index; 
+	var endOfMarker = beginOfMarker + this.numberOfSubsequentChar;
+	this.subsequentChar = compressedData.substring(beginOfMarker, endOfMarker);
+
+	this.nextCompressedData = compressedData.substring(beginOfMarker + this.subsequentChar.length, compressedData.length);
 }
 
 Marker.prototype.getDecompressedDataLength = function(){
@@ -18,7 +23,13 @@ Marker.prototype.getDecompressedDataLength = function(){
 		nextMarker = new Marker(this.subsequentChar);	
 		return this.timesToRepeat * nextMarker.getDecompressedDataLength();
 	}catch(err){
-		return this.timesToRepeat * this.numberOfSubsequentChar;
+		
+		try{
+			nextMarker = new Marker(this.nextCompressedData);
+			return this.timesToRepeat * this.numberOfSubsequentChar + nextMarker.getDecompressedDataLength();
+		}catch(err){
+			return this.timesToRepeat * this.numberOfSubsequentChar;
+		}
 	}
 };
 
