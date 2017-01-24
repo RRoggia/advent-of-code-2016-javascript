@@ -20,16 +20,26 @@ function Marker(compressedData){
 Marker.prototype.getDecompressedDataLength = function(){
 	var nextMarker = null;
 	try{
-		nextMarker = new Marker(this.subsequentChar);	
-		return this.timesToRepeat * nextMarker.getDecompressedDataLength();
+		var length = 0;
+		nextMarker = new Marker(this.subsequentChar);
+		for (var i = 0; i < 100000000; i++) {
+			length += nextMarker.getDecompressedDataLength();
+			
+			if(!nextMarker.nextCompressedData){
+				i = 100000001;
+				continue;
+			}
+			nextMarker = new Marker(nextMarker.nextCompressedData);
+		}
+		return this.timesToRepeat * length;
 	}catch(err){
 		
-		try{
-			nextMarker = new Marker(this.nextCompressedData);
-			return this.timesToRepeat * this.numberOfSubsequentChar + nextMarker.getDecompressedDataLength();
-		}catch(err){
+		//try{
+			//nextMarker = new Marker(this.nextCompressedData);
+			//return this.timesToRepeat * this.numberOfSubsequentChar + nextMarker.getDecompressedDataLength();
+		//}catch(err){
 			return this.timesToRepeat * this.numberOfSubsequentChar;
-		}
+		//}
 	}
 };
 
