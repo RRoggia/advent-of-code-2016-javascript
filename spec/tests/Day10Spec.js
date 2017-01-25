@@ -44,6 +44,4 @@ describe("Instruction", function() {
 		expect(instruction).isEqualTo(expectedInstruction);
 
 	});
-
-
 });
