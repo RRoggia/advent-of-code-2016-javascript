@@ -31,15 +31,15 @@ Marker.prototype.getDecompressedDataLength = function(){
 			}
 			nextMarker = new Marker(nextMarker.nextCompressedData);
 		}
-		return this.timesToRepeat * length;
-	}catch(err){
+		try{
+			nextMarker = new Marker(this.nextCompressedData);	
+			return this.timesToRepeat * length + nextMarker.getDecompressedDataLength();
+		}catch(err){
+			return this.timesToRepeat * length;	
+		}
 		
-		//try{
-			//nextMarker = new Marker(this.nextCompressedData);
-			//return this.timesToRepeat * this.numberOfSubsequentChar + nextMarker.getDecompressedDataLength();
-		//}catch(err){
-			return this.timesToRepeat * this.numberOfSubsequentChar;
-		//}
+	}catch(err){
+		return this.timesToRepeat * this.numberOfSubsequentChar;
 	}
 };
 
