@@ -38,3 +38,5 @@ My solutions to advent of code 2016
 ### Day 9
 * [First Part](https://github.com/RRoggia/roggia-advent-of-code-2016/tree/8bd2dd6cc5c0b5afa06e069eb7b3009ace5bf526/day9)
 * [First Part Tests](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/8bd2dd6cc5c0b5afa06e069eb7b3009ace5bf526/spec/tests/Day9Spec.js)
+* [Second Part](https://github.com/RRoggia/roggia-advent-of-code-2016/tree/fd6d7f119b9c4712ff42213afac884af5267353f/day9)
+* [Second Part Tests](https://github.com/RRoggia/roggia-advent-of-code-2016/blob/master/spec/tests/Day9Spec.js)
