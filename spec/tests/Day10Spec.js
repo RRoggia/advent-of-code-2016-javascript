@@ -1,5 +1,5 @@
 describe("Instruction", function() {
-	var Decompressor = require('../../day10/Instruction');
+	var Instruction = require('../../day10/Instruction');
 
 	it("should identify when a specific-valued microchip should be given to a specific bot", function(){
 		var instruction = 'value 23 goes to bot 68';
@@ -10,7 +10,7 @@ describe("Instruction", function() {
 			type:'assignment'
 		};
 
-		expect(instruction).toEqual(instruction);
+		expect(instruction).toEqual(expectedInstruction);
 
 	});
 
