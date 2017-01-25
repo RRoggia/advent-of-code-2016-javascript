@@ -20,17 +20,8 @@ function Marker(compressedData){
 Marker.prototype.getDecompressedDataLength = function(){
 	var nextMarker = null;
 	try{
-		var length = 0;
 		nextMarker = new Marker(this.subsequentChar);
-		for (var i = 0; i < 100000000; i++) {
-			length += nextMarker.getDecompressedDataLength();
-			
-			if(!nextMarker.nextCompressedData){
-				i = 100000001;
-				continue;
-			}
-			nextMarker = new Marker(nextMarker.nextCompressedData);
-		}
+		var length = nextMarker.getDecompressedDataLength();
 		try{
 			nextMarker = new Marker(this.nextCompressedData);	
 			return this.timesToRepeat * length + nextMarker.getDecompressedDataLength();
@@ -39,7 +30,13 @@ Marker.prototype.getDecompressedDataLength = function(){
 		}
 		
 	}catch(err){
-		return this.timesToRepeat * this.numberOfSubsequentChar;
+		try{
+			nextMarker = new Marker(this.nextCompressedData);	
+			return this.timesToRepeat * this.numberOfSubsequentChar + nextMarker.getDecompressedDataLength();
+		}catch(err){
+			return this.timesToRepeat * this.numberOfSubsequentChar;
+		}
+		
 	}
 };
 

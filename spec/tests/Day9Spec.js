@@ -52,4 +52,12 @@ describe("Marker", function() {
 		expect(length).toBe(444);
 	});
 
+	it("should run with puzzle input data", function(){
+		compressedData = require('../../day9/inputs');
+		marker = new Marker(compressedData);
+		var length = marker.getDecompressedDataLength();
+		expect(length).toBe(11558231665);
+
+	});
+
 });
