@@ -46,14 +46,10 @@ describe("Marker", function() {
 	});
 
 	it("should multiply or add depending on next Marker", function(){
-		compressedData = '(25x3)(3x3)ABC(2x3)XY(5x2)PQRS(18x9)(3x2)TWO(5x7)SEVEN';
+		compressedData = '(25x3)(3x3)ABC(2x3)XY(5x2)PQRST(18x9)(3x2)TWO(5x7)SEVEN';
 		marker = new Marker(compressedData);
 		var length = marker.getDecompressedDataLength();
-		expect(length).toBe(445);
-	});
-
-	it("should run with puzzle input data", function(){
-		compressedData = require('../../day9/input')
+		expect(length).toBe(444);
 	});
 
 });
