@@ -1,3 +1,5 @@
+var Bot = require('./Bot');
+
 function Instruction(instruction){
 	var type = instruction.match(/value/);
 	
@@ -8,6 +10,10 @@ function Instruction(instruction){
 		this.type = "assignment";
 	}
 	
-}
+};
+
+Instruction.prototype.execute = function() {
+	return new Bot(this.bot, this.value);
+};
 
 module.exports = Instruction;

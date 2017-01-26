@@ -26,6 +26,7 @@ var customMatchers = {
 
 describe("Instruction", function() {
 	var Instruction = require('../../day10/Instruction');
+	var Bot = require('../../day10/Bot');
 
 	beforeEach(function() {
 	    jasmine.addMatchers(customMatchers);
@@ -42,6 +43,13 @@ describe("Instruction", function() {
 		};
 
 		expect(instruction).isEqualTo(expectedInstruction);
+	});
 
+	it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
+		var instructiones = 'value 23 goes to bot 68';
+		var instruction = new Instruction(instructiones);
+		var bot = instruction.execute();
+		var expectedBot = new Bot(68,23);
+		expect(bot).toEqual(expectedBot);
 	});
 });
