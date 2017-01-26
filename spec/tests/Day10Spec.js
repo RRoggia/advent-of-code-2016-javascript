@@ -98,9 +98,29 @@ describe("Instruction", function() {
 });
 
 describe("Bot", function() {
+	var bot = null;
+	beforeEach(function() {
+	    bot = new Bot(1, 10);
+	});
+
 	it("should be created with a low chip", function(){
-		var bot = new Bot(1, 10);
 		expect(bot.low).toBe(10);
+	});
+
+	it("adds chip to high if it is higher than their chip", function(){
+		bot.addChip(20);
+		expect(bot.high).toBe(20);
+	});
+
+	it("adds chip to low if it is lower than their chip", function() {
+		bot.addChip(5);
+		expect(bot.low).toBe(5);
+		expect(bot.high).toBe(10);
+	});
+	it("low and high should be the same if adds a chip with same value", function() {
+		bot.addChip(10);
+		expect(bot.low).toBe(10);
+		expect(bot.high).toBe(10);
 	});
 
 
