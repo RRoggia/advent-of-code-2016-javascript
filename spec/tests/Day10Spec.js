@@ -1,31 +1,31 @@
-var Instruction = require('../../day10/Instruction');
-var Bot = require('../../day10/Bot');
-var Queue = require('../../day10/Queue');
+var Instruction = require("../../day10/Instruction");
+var Bot = require("../../day10/Bot");
+var Queue = require("../../day10/Queue");
 
 var customMatchers = {
 	isEqualTo: function(util, customEqualityTesters) {
 		return {
- 			compare: function(actual, expected) {
+			compare: function(actual, expected) {
 
-	 			if (expected === undefined) {
-					expected = '';
+				if (expected === undefined) {
+					expected = "";
 				}
 
 				var result = {};
 
 				result.pass = util.equals(actual.value, expected.value, customEqualityTesters) && 
-							  util.equals(actual.bot, expected.bot, customEqualityTesters) && 
-							  util.equals(actual.type, expected.type, customEqualityTesters) &&
-							  util.equals(actual.lowTo, expected.lowTo, customEqualityTesters) &&
-							  util.equals(actual.highTo, expected.highTo, customEqualityTesters);
+							util.equals(actual.bot, expected.bot, customEqualityTesters) && 
+							util.equals(actual.type, expected.type, customEqualityTesters) &&
+							util.equals(actual.lowTo, expected.lowTo, customEqualityTesters) &&
+							util.equals(actual.highTo, expected.highTo, customEqualityTesters);
 				
 				if (!result.pass) {
 					result.message = "Actual is different { " + 
-										(actual.value !== expected.value)? actual.value : "" + ',' +  
-										(actual.bot !== expected.bot)? actual.bot : "" + ',' +
-										(actual.type !== expected.type)? actual.type : "" + ',' +
-										(actual.lowTo !== expected.lowTo)? actual.lowTo : "" + ',' +
-										(actual.highTo !== expected.highTo)? actual.highTo : "" + '}';
+										(actual.value !== expected.value)? actual.value : "" + "," +  
+										(actual.bot !== expected.bot)? actual.bot : "" + "," +
+										(actual.type !== expected.type)? actual.type : "" + "," +
+										(actual.lowTo !== expected.lowTo)? actual.lowTo : "" + "," +
+										(actual.highTo !== expected.highTo)? actual.highTo : "" + "}";
 				}
 				return result;
 			}
@@ -38,11 +38,11 @@ describe("Instruction", function() {
 
 
 	beforeEach(function() {
-	    jasmine.addMatchers(customMatchers);
+		jasmine.addMatchers(customMatchers);
 	});
 
 	it("should identify when a specific-valued microchip should be given to a specific bot", function(){
-		var instruction = new Instruction('value 23 goes to bot 68');
+		var instruction = new Instruction("value 23 goes to bot 68");
 		
 		var expectedInstruction = {
 			"value": 23,
@@ -54,7 +54,7 @@ describe("Instruction", function() {
 	});
 
 	it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
-		var instructiones = 'value 23 goes to bot 68';
+		var instructiones = "value 23 goes to bot 68";
 		var instruction = new Instruction(instructiones);
 		var bot = instruction.execute();
 		var expectedBot = new Bot(68,23);
@@ -63,11 +63,11 @@ describe("Instruction", function() {
 
 	it("creates a bot for each assigment instructions", function () {
 		var instructions = [
-			'value 23 goes to bot 68',
-			'value 5 goes to bot 209',
-			'value 11 goes to bot 175',
-			'value 3 goes to bot 170',
-			'value 67 goes to bot 129',
+			"value 23 goes to bot 68",
+			"value 5 goes to bot 209",
+			"value 11 goes to bot 175",
+			"value 3 goes to bot 170",
+			"value 67 goes to bot 129",
 		];
 
 		var expectedBots = [];
@@ -87,7 +87,7 @@ describe("Instruction", function() {
 	});
 
 	it("identifies action instructions", function() {
-		var instruction = new Instruction('bot 76 gives low to bot 191 and high to bot 21');
+		var instruction = new Instruction("bot 76 gives low to bot 191 and high to bot 21");
 		var expectedInstruction = {
 			"lowTo": 191,
 			"highTo": 21,
@@ -101,7 +101,7 @@ describe("Instruction", function() {
 describe("Bot", function() {
 	var bot = null;
 	beforeEach(function() {
-	    bot = new Bot(1, 10);
+		bot = new Bot(1, 10);
 	});
 
 	it("should be created with a low chip", function(){
@@ -113,12 +113,12 @@ describe("Bot", function() {
 		expect(bot.high).toBe(20);
 	});
 
-	it("adds chip to low if it is lower than their chip", function() {
+	it("adds chip to low if it is lower than their chip", function(){
 		bot.addChip(5);
 		expect(bot.low).toBe(5);
 		expect(bot.high).toBe(10);
 	});
-	it("low and high should be the same if adds a chip with same value", function() {
+	it("low and high should be the same if adds a chip with same value", function(){
 		bot.addChip(10);
 		expect(bot.low).toBe(10);
 		expect(bot.high).toBe(10);
@@ -126,21 +126,18 @@ describe("Bot", function() {
 });
 
 describe("Queue", function() {
-	it("creates a queue of instructions with the assigment first and the actions after", function() {
-		var instructions = [
-			'value 23 goes to bot 68',
-			'bot 76 gives low to bot 191 and high to bot 21',
-			'value 11 goes to bot 175'
-		];
-		//console.log(Queue());
+	it("creates a queue of instructions with the assigment first and the actions after", function(){
+		var instructions = ["value 23 goes to bot 68",
+			"bot 76 gives low to bot 191 and high to bot 21",
+			"value 11 goes to bot 175"];
+		
 		var queue = Queue(instructions);
 		console.log(queue);
 		var expectedInstructions = [
-				new Instruction('value 23 goes to bot 68'),
-				new Instruction('value 11 goes to bot 175'),
-				new Instruction('bot 76 gives low to bot 191 and high to bot 21')
-			
-			];
+			new Instruction("value 23 goes to bot 68"),
+			new Instruction("value 11 goes to bot 175"),
+			new Instruction("bot 76 gives low to bot 191 and high to bot 21")
+		];
 		var expectedQueue = {
 			instructions : expectedInstructions
 		};

@@ -1,4 +1,4 @@
-var Bot = require('./Bot');
+var Bot = require("./Bot");
 
 function Instruction(instruction){
 	var type = instruction.match(/value/);
@@ -14,8 +14,7 @@ function Instruction(instruction){
 		this.highTo = parseInt(numbers[2]);
 		this.type = "action";
 	}
-	
-};
+}
 
 Instruction.prototype.execute = function() {
 	return new Bot(this.bot, this.value);
