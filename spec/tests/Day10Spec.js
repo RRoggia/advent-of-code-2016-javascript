@@ -1,5 +1,6 @@
 var Instruction = require('../../day10/Instruction');
 var Bot = require('../../day10/Bot');
+var Queue = require('../../day10/Queue');
 
 var customMatchers = {
 	isEqualTo: function(util, customEqualityTesters) {
@@ -122,6 +123,28 @@ describe("Bot", function() {
 		expect(bot.low).toBe(10);
 		expect(bot.high).toBe(10);
 	});
+});
 
+describe("Queue", function() {
+	it("creates a queue of instructions with the assigment first and the actions after", function() {
+		var instructions = [
+			'value 23 goes to bot 68',
+			'bot 76 gives low to bot 191 and high to bot 21',
+			'value 11 goes to bot 175'
+		];
+		//console.log(Queue());
+		var queue = Queue(instructions);
+		console.log(queue);
+		var expectedInstructions = [
+				new Instruction('value 23 goes to bot 68'),
+				new Instruction('value 11 goes to bot 175'),
+				new Instruction('bot 76 gives low to bot 191 and high to bot 21')
+			
+			];
+		var expectedQueue = {
+			instructions : expectedInstructions
+		};
 
+		expect(queue.instructions).toEqual(expectedQueue.instructions);
+	});
 });
