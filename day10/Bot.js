@@ -1,6 +1,6 @@
-function Bot(number, value){
+function Bot(number, low){
 	this.number = number;
-	this.value = value;
+	this.low = low;
 }
 
 module.exports = Bot;
