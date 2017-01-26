@@ -1,17 +1,17 @@
 var Instruction = require("./Instruction");
 
 function InstructionQueue(stringInstructions){
-	var assignments = [];
-	var action = [];
+	this.assignments = [];
+	this.actions = [];
+
 	for (var i = 0; i < stringInstructions.length; i++) {
 		var instruction = new Instruction(stringInstructions[i]);
 		if(instruction.type === "assignment"){
-			assignments.push(instruction);
+			this.assignments.push(instruction);
 		}else {
-			action.push(instruction);
+			this.actions.push(instruction);
 		}
 	}
-	this.instructions = assignments.concat(action);
 }
 
 module.exports = InstructionQueue;

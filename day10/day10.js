@@ -6,6 +6,10 @@ var Bot = require("./Bot");
 var queue = new InstructionQueue(instructions);
 
 var bot = Bot();
-for (var i = 0; i < queue.instructions.length; i++) {
-	bot.execute(queue.instructions[i]);
+for (var i = 0; i < queue.assignments.length; i++) {
+	bot.execute(queue.assignments[i]);
+}
+
+for (var i = 0; i < queue.actions.length; i++) {
+	bot.execute(queue.assignments[i]);
 }

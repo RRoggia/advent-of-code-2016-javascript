@@ -132,16 +132,22 @@ describe("InstructionQueue", function(){
 
 		var queue = new	InstructionQueue(instructions);
 
-		var expectedInstructions = [
+		var assignments = [
 			new Instruction("value 23 goes to bot 68"),
-			new Instruction("value 11 goes to bot 175"),
+			new Instruction("value 11 goes to bot 175")
+		];
+
+		var actions = [
 			new Instruction("bot 76 gives low to bot 191 and high to bot 21")
 		];
 
 		var expectedQueue = {
-			instructions : expectedInstructions
+			assignments : assignments,
+			actions: actions
 		};
-		expect(queue.instructions).toEqual(expectedQueue.instructions);
+
+		expect(queue.assignments).toEqual(expectedQueue.assignments);
+		expect(queue.actions).toEqual(expectedQueue.actions);
 	})
 });
 
