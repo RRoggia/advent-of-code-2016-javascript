@@ -1,5 +1,3 @@
-var Bot = require("./Bot");
-
 function Instruction(instruction){
 	var type = instruction.match(/value/);
 	var numbers = instruction.match(/[0-9]+/g);
@@ -15,9 +13,4 @@ function Instruction(instruction){
 		this.type = "action";
 	}
 }
-
-Instruction.prototype.execute = function() {
-	return new Bot(this.bot, this.value);
-};
-
 module.exports = Instruction;

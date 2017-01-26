@@ -1,6 +1,6 @@
 var Instruction = require("../../day10/Instruction");
 var Bot = require("../../day10/Bot");
-var Queue = require("../../day10/Queue");
+var InstructionQueue = require("../../day10/InstructionQueue");
 
 var customMatchers = {
 	isEqualTo: function(util, customEqualityTesters) {
@@ -35,8 +35,6 @@ var customMatchers = {
 
 
 describe("Instruction", function() {
-
-
 	beforeEach(function() {
 		jasmine.addMatchers(customMatchers);
 	});
@@ -53,38 +51,7 @@ describe("Instruction", function() {
 		expect(instruction).isEqualTo(expectedInstruction);
 	});
 
-	it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
-		var instructiones = "value 23 goes to bot 68";
-		var instruction = new Instruction(instructiones);
-		var bot = instruction.execute();
-		var expectedBot = new Bot(68,23);
-		expect(bot).toEqual(expectedBot);
-	});
 
-	it("creates a bot for each assigment instructions", function () {
-		var instructions = [
-			"value 23 goes to bot 68",
-			"value 5 goes to bot 209",
-			"value 11 goes to bot 175",
-			"value 3 goes to bot 170",
-			"value 67 goes to bot 129",
-		];
-
-		var expectedBots = [];
-		expectedBots.push(new Bot(68, 23));
-		expectedBots.push(new Bot(209, 5));
-		expectedBots.push(new Bot(175, 11));
-		expectedBots.push(new Bot(170, 3));
-		expectedBots.push(new Bot(129, 67));
-
-		var createdBots = [];
-		for (var i = 0; i < instructions.length; i++) {
-			var instruction = new Instruction(instructions[i]);
-			createdBots.push(instruction.execute());
-		}
-
-		expect(createdBots).toEqual(expectedBots);
-	});
 
 	it("identifies action instructions", function() {
 		var instruction = new Instruction("bot 76 gives low to bot 191 and high to bot 21");
@@ -123,25 +90,58 @@ describe("Bot", function() {
 		expect(bot.low).toBe(10);
 		expect(bot.high).toBe(10);
 	});
-});
 
-describe("Queue", function() {
-	it("creates a queue of instructions with the assigment first and the actions after", function(){
-		var instructions = ["value 23 goes to bot 68",
-			"bot 76 gives low to bot 191 and high to bot 21",
-			"value 11 goes to bot 175"];
-		
-		var queue = Queue(instructions);
-		console.log(queue);
+	it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
+		var instructiones = "value 23 goes to bot 68";
+		var instruction = new Instruction(instructiones);
+		var bot = new Bot();
+		bot = bot.execute(instruction);
+		var expectedBot = new Bot(68,23);
+		expect(bot).toEqual(expectedBot);
+	});
+
+	it("creates a bot for each assigment instructions", function () {
+		var instructions = [
+			"value 23 goes to bot 68",
+			"value 5 goes to bot 209",
+			"value 11 goes to bot 175",
+			"value 3 goes to bot 170",
+			"value 67 goes to bot 129",
+		];
+
+		var expectedBots = [];
+		expectedBots.push(new Bot(68, 23));
+		expectedBots.push(new Bot(209, 5));
+		expectedBots.push(new Bot(175, 11));
+		expectedBots.push(new Bot(170, 3));
+		expectedBots.push(new Bot(129, 67));
+
+		var createdBots = [];
+		for (var i = 0; i < instructions.length; i++) {
+			var bot = new Bot();
+			var instruction = new Instruction(instructions[i]);
+			createdBots.push(bot.execute(instruction));
+		}
+
+		expect(createdBots).toEqual(expectedBots);
+	});
+});
+describe("InstructionQueue", function(){
+	it("creates a queue of instructions with the assignments first and actions later", function(){
+		var instructions = ["value 23 goes to bot 68","bot 76 gives low to bot 191 and high to bot 21", "value 11 goes to bot 175"];
+
+		var queue = new	InstructionQueue(instructions);
+
 		var expectedInstructions = [
 			new Instruction("value 23 goes to bot 68"),
 			new Instruction("value 11 goes to bot 175"),
 			new Instruction("bot 76 gives low to bot 191 and high to bot 21")
 		];
+
 		var expectedQueue = {
 			instructions : expectedInstructions
 		};
-
 		expect(queue.instructions).toEqual(expectedQueue.instructions);
-	});
+	})
 });
+

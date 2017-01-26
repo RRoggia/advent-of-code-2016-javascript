@@ -1,3 +1,4 @@
+
 function Bot(number, low){
 	this.number = number;
 	this.low = low;
@@ -16,6 +17,10 @@ Bot.prototype.addChip = function (chipValue) {
 		this.high = this.low;
 		this.low = chipValue;
 	}
+};
+
+Bot.prototype.execute = function(instruction){
+	return new Bot(instruction.bot, instruction.value);
 };
 
 module.exports = Bot;
