@@ -14,11 +14,17 @@ var customMatchers = {
 
 				result.pass = util.equals(actual.value, expected.value, customEqualityTesters) && 
 							  util.equals(actual.bot, expected.bot, customEqualityTesters) && 
-							  util.equals(actual.type, expected.type, customEqualityTesters);
+							  util.equals(actual.type, expected.type, customEqualityTesters) &&
+							  util.equals(actual.lowTo, expected.lowTo, customEqualityTesters) &&
+							  util.equals(actual.highTo, expected.highTo, customEqualityTesters);
 				
 				if (!result.pass) {
-					result.message = "Actual { " + actual.value + ',' + actual.bot + ',' + actual.type + " } to be " +
-									  expected.value + ',' + expected.bot + ',' + expected.type + " }" ;
+					result.message = "Actual is different { " + 
+										(actual.value !== expected.value)? actual.value : "" + ',' +  
+										(actual.bot !== expected.bot)? actual.bot : "" + ',' +
+										(actual.type !== expected.type)? actual.type : "" + ',' +
+										(actual.lowTo !== expected.lowTo)? actual.lowTo : "" + ',' +
+										(actual.highTo !== expected.highTo)? actual.highTo : "" + '}';
 				}
 				return result;
 			}
@@ -78,11 +84,24 @@ describe("Instruction", function() {
 
 		expect(createdBots).toEqual(expectedBots);
 	});
+
+	it("identifies action instructions", function() {
+		var instruction = new Instruction('bot 76 gives low to bot 191 and high to bot 21');
+		var expectedInstruction = {
+			"lowTo": 191,
+			"highTo": 21,
+			"bot": 76,
+			"type": "action"
+		};
+		expect(instruction).isEqualTo(expectedInstruction);
+	});
 });
 
 describe("Bot", function() {
 	it("should be created with a low chip", function(){
 		var bot = new Bot(1, 10);
 		expect(bot.low).toBe(10);
-	})
+	});
+
+
 });
