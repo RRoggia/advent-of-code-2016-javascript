@@ -8,11 +8,12 @@ var queue = new InstructionQueue(instructions);
 
 var factory = new Factory();
 var bots = factory.assignChipsToBots(queue.assignments);
-console.log(bots);
 
 factory.addInstructions(queue.actions);
 
 while(factory.hasNextInstruction()){
 	var nextAction = factory.getNextAction();
 	factory.executeNextAction(nextAction);
+
 }
+console.log("Value of the second puzzle", factory.getResultOfBinsMultiplied());

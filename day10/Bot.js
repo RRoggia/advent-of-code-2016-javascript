@@ -8,7 +8,7 @@ function Bot(number, low){
 Bot.prototype.addChip = function (chipValue) {
 	if((chipValue === 61 && this.low === 17 || this.high === 17) ||
 		(chipValue === 17 && this.low === 61 || this.high === 61)){
-		console.log(this.bot);
+		console.log("The answer is", this.number);
 	}
 	
 	if(chipValue > this.low){
