@@ -19,8 +19,4 @@ Bot.prototype.addChip = function (chipValue) {
 	}
 };
 
-Bot.prototype.execute = function(instruction){
-	return new Bot(instruction.bot, instruction.value);
-};
-
 module.exports = Bot;

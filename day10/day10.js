@@ -2,14 +2,17 @@ var instructions = require("./inputs");
 var InstructionQueue = require("./InstructionQueue");
 var Instruction = require("./Instruction");
 var Bot = require("./Bot");
+var Factory = require("./Factory");
 
 var queue = new InstructionQueue(instructions);
 
-var bot = Bot();
-for (var i = 0; i < queue.assignments.length; i++) {
-	bot.execute(queue.assignments[i]);
-}
+var factory = new Factory();
+var bots = factory.assignChipsToBots(queue.assignments);
+console.log(bots);
 
-for (var i = 0; i < queue.actions.length; i++) {
-	bot.execute(queue.assignments[i]);
+factory.addInstructions(queue.actions);
+
+while(factory.hasNextInstruction()){
+	var nextAction = factory.getNextAction();
+	factory.executeNextAction(nextAction[0]);
 }
