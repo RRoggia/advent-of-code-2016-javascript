@@ -14,5 +14,5 @@ factory.addInstructions(queue.actions);
 
 while(factory.hasNextInstruction()){
 	var nextAction = factory.getNextAction();
-	factory.executeNextAction(nextAction[0]);
+	factory.executeNextAction(nextAction);
 }

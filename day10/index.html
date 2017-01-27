@@ -7,8 +7,22 @@
 <script src="./inputs.js"></script>
 <script src="./InstructionQueue.js"></script>
 <script src="./Instruction.js"></script>
+<script src="./Bot.js"></script>
+<script src="./Factory.js"></script>
 <script>
-	new InstructionQueue()
+var queue = new InstructionQueue(instructions);
+
+var factory = new Factory();
+var bots = factory.assignChipsToBots(queue.assignments);
+console.log(bots);
+
+factory.addInstructions(queue.actions);
+
+while(factory.hasNextInstruction()){
+	var nextAction = factory.getNextAction();
+	factory.executeNextAction(nextAction);
+}
+
 </script>
 </body>
 </html>

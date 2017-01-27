@@ -1,4 +1,4 @@
-module.exports = [
+var instructions = [
 	"bot 76 gives low to bot 191 and high to bot 21",
 	"bot 193 gives low to bot 118 and high to bot 145",
 	"bot 173 gives low to bot 91 and high to bot 36",
@@ -231,3 +231,5 @@ module.exports = [
 	"bot 183 gives low to bot 83 and high to bot 90",
 	"bot 71 gives low to bot 152 and high to bot 121"
 ];
+
+module.exports = instructions;

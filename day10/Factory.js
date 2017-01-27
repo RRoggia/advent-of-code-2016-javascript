@@ -26,7 +26,7 @@ Factory.prototype.getNextAction = function(){
 	for (var i = 0; i < this.dailyInstructions.length; i++) {
 		if(this.dailyInstructions[i].bot === this.botWithTwoChips.number){
 			var remaining = this.dailyInstructions.splice(i, 1);
-			return remaining;
+			return remaining[0];
 		}
 	}
 };
@@ -62,7 +62,7 @@ Factory.prototype.executeNextAction = function(instruction){
 	}
 
 	this.bots[this.botWithTwoChips.number].low = 0;
-	this.bots[this.botWithTwoChips.number].low = 0;
+	this.bots[this.botWithTwoChips.number].high = 0;
 
 	if(this.bots[instruction.lowTo].low && this.bots[instruction.lowTo].high)
 		this.botWithTwoChips = this.bots[instruction.lowTo];
