@@ -91,7 +91,7 @@ describe("Bot", function() {
 		expect(bot.high).toBe(10);
 	});
 
-	it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
+	/*it("executes an assigment instruction and creates a bot with the value specified in the instruction", function() {
 		var instructiones = "value 23 goes to bot 68";
 		var instruction = new Instruction(instructiones);
 		var bot = new Bot();
@@ -124,7 +124,7 @@ describe("Bot", function() {
 		}
 
 		expect(createdBots).toEqual(expectedBots);
-	});
+	});*/
 });
 describe("InstructionQueue", function(){
 	it("creates a queue of instructions with the assignments first and actions later", function(){
