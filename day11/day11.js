@@ -5,10 +5,8 @@ function Floor(number, items, isElevatorHere) {
 
 function Building(floors) {
 	this.floors = floors;
-	this.elevatorLocation = 1;
+	this.elevatorLocation = 0;
 }
-
-
 
 function hasFriedChip(items) {
 	var chips = [];
@@ -43,6 +41,82 @@ function hasFriedChip(items) {
 	return false;
 }
 
+function getMovimentsWithoutFriyngAChip(building) {
+	var possibleMovements = [];
+	var items = building.floors[building.elevatorLocation].items;
+
+	for (var i = 0; i < items.length; i++) {
+		var floorItems = items.slice();
+		var item = items[i];
+		floorItems.splice(i, 1);
+
+		if (!hasFriedChip(floorItems)) {
+			if (building.elevatorLocation < 3) {
+				var upFloorItems = building.floors[building.elevatorLocation + 1].items.slice();
+				upFloorItems.push(item);
+				if (!hasFriedChip(upFloorItems)) {
+					possibleMovements.push({
+						moviment: "up",
+						items: [item]
+					});
+				}
+			}
+
+			if (building.elevatorLocation > 0) {
+				var downFloorItems = building.floors[building.elevatorLocation - 1].items.slice();
+				downFloorItems.push(item);
+				if (!hasFriedChip(downFloorItems)) {
+					possibleMovements.push({
+						moviment: "down",
+						items: [item]
+					});
+				}
+			}
+		}
+	}
+
+	for (var i = 0; i < items.length; i++) {
+		for (var j = i + 1; j < items.length; j++) {
+			var floorItems = items.slice();
+			
+			var item1 = items[i];
+			var item2 = items[j];
+			
+			floorItems.splice(i, 1);
+			floorItems.splice(j - 1, 1);
+
+			if (!hasFriedChip(floorItems)) {
+
+				if (building.elevatorLocation < 3) {
+					var upFloorItems = building.floors[building.elevatorLocation + 1].items.slice();
+					upFloorItems.push(item1);
+					upFloorItems.push(item2);
+					if (!hasFriedChip(upFloorItems)) {
+						possibleMovements.push({
+							moviment: "up",
+							items: [item1, item2]
+						});
+					}
+				}
+
+				if (building.elevatorLocation > 0) {
+					var downFloorItems = building.floors[building.elevatorLocation - 1].items.slice();
+					downFloorItems.push(item1);
+					downFloorItems.push(item2);
+					if (!hasFriedChip(downFloorItems)) {
+						possibleMovements.push({
+							moviment: "down",
+							items: [item1, item2]
+						});
+					}
+				}
+			}
+		}
+	}
+	
+	return possibleMovements;
+}
+
 var floors = [
 	new Floor(1, ["pog", "thg", "thm", "prg", "rug" , "rum", "cog", "com"]),
 	new Floor(2, ["pom", "prm"]),
@@ -52,15 +126,18 @@ var floors = [
 
 var building = new Building(floors);
 var step = 0;
-while(building.floors[3].items.length < 10){
+//while(building.floors[3].items.length < 10){
 
 	//check if has any fried chip
 	for (var i = 0; i < building.floors.length; i++) {
 		hasFriedChip(building.floors[i].items);
 	}
 
+	var elevatorMovimentsWithoutFriyngAChip = getMovimentsWithoutFriyngAChip(building);
+
+
 	step++;
-}
+//}
 
 
 
