@@ -18,5 +18,8 @@
   "homepage": "https://github.com/RRoggia/roggia-advent-of-code-2016#readme",
   "devDependencies": {
     "jasmine": "^2.5.2"
+  },
+  "dependencies": {
+    "npm": "^6.4.1"
   }
 }
